@@ -18,6 +18,11 @@ typedef struct BinaryTree
 {
 	BTNode* root;
 }BinaryTree;
+typedef struct tree
+{
+	ElemType tree[MAXSIZE][2];
+	int treeH = 0;
+}Tree;
 
 void Create(BinaryTree* bt);
 BTNode* NewNode(ElemType x, BTNode* ln, BTNode* rn);
@@ -34,7 +39,10 @@ void Clear(BTNode* t);
 int TreeSize(BinaryTree* bt);
 int Size(BTNode* t);
 void LevelOrderTree(BinaryTree* tree);
-void ExchangeThre(BinaryTree* bt, ElemType btByParent[MAXSIZE][2]);
+void ExchangeThre(BinaryTree* bt, Tree* t);
+void PrintTree(Tree* t);
+
+
 //构建新二叉树
 void Create(BinaryTree* bt)
 {
@@ -105,28 +113,30 @@ void PostOrder(BTNode* t)
 }
 //重写先序遍历以供二叉树转化使用
 //i数组下标、j父元素、k当前元素
-void Exchange(BTNode* t, ElemType tree[MAXSIZE][2], ElemType& i, ElemType j, ElemType k)
+void Exchange(BTNode* p, Tree* t, ElemType& i, ElemType j, ElemType k)
 {
-	if (!t)
+	if (!p)
 		return;
 	//printf("%c", t->element);//访问根节点
 	//左孩子、右兄弟，处理左孩子，其父亲为j也就是本元素
-	if (t->lChild)
+	if (p->lChild)
 	{
 		i++;
-		tree[i][0] = t->lChild->element;
-		tree[i][1] = k;
+		t->tree[i][0] = p->lChild->element;
+		t->tree[i][1] = k;
+		t->treeH++;
 		//继续递归
-		Exchange(t->lChild, tree, i, k, i);//遍历左子树
+		Exchange(p->lChild, t, i, k, i);//遍历左子树
 	}
 	//左孩子、右兄弟，处理兄弟，i++进入数组的下一行，同时该点的父亲和当前点相同。
-	if (t->rChild)
+	if (p->rChild)
 	{
 		i++;
-		tree[i][0] = t->rChild->element;
-		tree[i][1] = j;
+		t->tree[i][0] = p->rChild->element;
+		t->tree[i][1] = j;
+		t->treeH++;
 		//继续递归
-		Exchange(t->rChild, tree, i, j, i);//遍历右子树
+		Exchange(p->rChild, t, i, j, i);//遍历右子树
 	}
 }
 //层次遍历
@@ -148,15 +158,33 @@ void LevelOrderTree(BinaryTree* tree)
 			Q.push(p->rChild);
 	}
 }
-void ExchangeThre(BinaryTree* bt, ElemType btByParent[MAXSIZE][2])
+void ExchangeThre(BinaryTree* bt, Tree* t)
 {
 	BTNode* p = bt->root;
 	//i为当前数组所在行，j为当前爸爸
 	ElemType i = 0, j = -1;
-	btByParent[i][0] = p->element;//首先获取根节点的数据
-	btByParent[i][1] = j;
+	t->tree[i][0] = p->element;//首先获取根节点的数据
+	t->tree[i][1] = j;
+	t->treeH++;
 	//先序遍历二叉树并将其转化为树存储在数组中
-	Exchange(p, btByParent, i, -1, 0);
+	Exchange(p, t, i, -1, 0);
+}
+void PrintTree(Tree* t)
+{
+	//首先输出根节点
+	printf("%c", t->tree[0][0]);
+	//进入下一行
+	printf("\n");
+	//i为当前根节点
+	for (int i = 0; i < t->treeH; i++)
+	{
+		for (int j = i + 1; j < t->treeH; j++)
+		{
+			if (t->tree[j][1] == i)
+				printf("%c ", t->tree[0][0]);
+		}
+
+	}
 }
 //二叉树的清空
 void TreeClear(BinaryTree* bt)
@@ -234,11 +262,19 @@ int main()
 {
 	BinaryTree* bt = (BinaryTree*)malloc(sizeof(BinaryTree));
 	PreMakeTree(bt);
-	ElemType tree[MAXSIZE][2];
-	ExchangeThre(bt, tree);
+	Tree* t = (Tree*)malloc(sizeof(Tree));
+	if (t)
+	{
+		t->treeH = 0;
+	}
+	else
+	{
+		exit(1);
+	}
+	ExchangeThre(bt, t);
 
-
+	PrintTree(t);
 
 	//printf("%d", TreeSize(bt));
-	return 0;
+		return 0;
 }

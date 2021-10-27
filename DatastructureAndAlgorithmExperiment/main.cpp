@@ -1,28 +1,10 @@
+#pragma once
 #include<stdio.h>
 #include<stdlib.h>
 #include<queue>
 #include <iostream>
+#include"Struct.h"
 using namespace std;
-#define QUEUESIZE 127
-#define MAXSIZE 127
-
-//首先我们从数据结构实验中抄来一部分代码
-typedef char ElemType;
-typedef struct btnode
-{
-	ElemType element;
-	struct btnode* lChild;
-	struct btnode* rChild;
-}BTNode;
-typedef struct BinaryTree
-{
-	BTNode* root;
-}BinaryTree;
-typedef struct tree
-{
-	ElemType tree[MAXSIZE][2];
-	int treeH = 0;
-}Tree;
 
 void Create(BinaryTree* bt);
 BTNode* NewNode(ElemType x, BTNode* ln, BTNode* rn);
@@ -169,23 +151,23 @@ void ExchangeThre(BinaryTree* bt, Tree* t)
 	//先序遍历二叉树并将其转化为树存储在数组中
 	Exchange(p, t, i, -1, 0);
 }
-void PrintTree(Tree* t)
-{
-	//首先输出根节点
-	printf("%c", t->tree[0][0]);
-	//进入下一行
-	printf("\n");
-	//i为当前根节点
-	for (int i = 0; i < t->treeH; i++)
-	{
-		for (int j = i + 1; j < t->treeH; j++)
-		{
-			if (t->tree[j][1] == i)
-				printf("%c ", t->tree[0][0]);
-		}
-
-	}
-}
+//void PrintTree(Tree* t)
+//{
+//	//首先输出根节点
+//	printf("%c", t->tree[0][0]);
+//	//进入下一行
+//	printf("\n");
+//	//i为当前根节点
+//	for (int i = 0; i < t->treeH; i++)
+//	{
+//		for (int j = i + 1; j < t->treeH; j++)
+//		{
+//			if (t->tree[j][1] == i)
+//				printf("%c ", t->tree[0][0]);
+//		}
+//
+//	}
+//}
 //二叉树的清空
 void TreeClear(BinaryTree* bt)
 {

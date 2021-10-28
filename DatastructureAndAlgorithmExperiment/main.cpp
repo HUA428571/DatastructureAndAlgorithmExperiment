@@ -4,6 +4,7 @@
 #include<queue>
 #include <iostream>
 #include"Struct.h"
+#include "PrintTree.h"
 using namespace std;
 
 void Create(BinaryTree* bt);
@@ -22,8 +23,6 @@ int TreeSize(BinaryTree* bt);
 int Size(BTNode* t);
 void LevelOrderTree(BinaryTree* tree);
 void ExchangeThre(BinaryTree* bt, Tree* t);
-void PrintTree(Tree* t);
-
 
 //构建新二叉树
 void Create(BinaryTree* bt)
@@ -254,9 +253,11 @@ int main()
 		exit(1);
 	}
 	ExchangeThre(bt, t);
-
-	PrintTree(t);
+	PrintTree* pt = (PrintTree*)malloc(sizeof(printTree));
+	CalculateTree(pt,t);
+	DrawTree(pt, t);
 
 	//printf("%d", TreeSize(bt));
-		return 0;
+	closegraph();
+	return 0;
 }

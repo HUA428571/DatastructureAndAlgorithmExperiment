@@ -4,88 +4,80 @@
 #include"Struct.h"
 #include "PrintTree.h"
 using namespace std;
-#define ZOOM 20//绘图缩放因子为20
-#define FONT "黑体"
 
-void CalculateTree(PrintTree* pt, Tree *t)
+//告诉我，为什么，我要抽到一个图形化树的题目！
+void CalculateTree(PrintForest* pt, Tree *t)
 {
 	float XL = 0, XR = 0;
-		int H = 1;
+	int H = 1;
+	pt->TreeMAXheight=0;
 	int node;//要处理的节点下标
 	//从根节点以下的坐标开始处理
-	CalculateTreeXY(0, t, pt, XL, XR, 2);
+	CalculateTreeXY(0, t, pt, XL, XR, 0);
+	pt->TreeMAXwidth = XR-1;
 }
 
-//注意 H从1开始
-void CalculateTreeXY(int node,Tree *t,PrintTree*pt, float & XL, float & XR, int H)
+//注意 H从0开始
+//(当前节点下标，，，左侧坐标开始，右侧坐标结束，高）
+void CalculateTreeXY(int node,Tree *t,PrintForest*pt, float XL, float & XR, int H)
 {
 	//遍历以计算子节点个数
-	float Xl=XL;
+	//设定一个变量存储现有横坐标，这个坐标不会被递归函数改变。
+	float LocationXnow=XL;
 	int SonCount = 0;
 	int Son[MAXSIZE];
 	for (int i = node; i < t->treeH; i++)
 	{
-		if (t->tree[i][1] == node)
+		if (t->Father[i] == node)
 		{
 			Son[SonCount] = i;
 			SonCount++;
 			pt->Tree[i].father = node;
 		}
 	}
+	//没有孩子，为根节点
 	if(SonCount==0)
 	{
-		pt->Tree[node].element=t->tree[node][0];
+		pt->Tree[node].element=t->Element[node];
 		pt->Tree[node].y = H;
-		pt->Tree[node].x = (XL + XR) / 2;
+		pt->Tree[node].x = XR;
+		//遇到根节点，右节点位置计数加一
+		XR++;
+		//更新数的高度
+		if (H > pt->TreeMAXheight)
+			pt->TreeMAXheight = H;
 		return;
 	}
 	else
 	{
+		//递归调用位置函数计算函数
 		for (int i = 0; i < SonCount; i++)
 		{
-			XR++;
 			CalculateTreeXY(Son[i], t, pt, XR, XR, H + 1);
-//			SonCount--;
 		}
-		pt->Tree[node].element = t->tree[node][0];
+		pt->Tree[node].element = t->Element[node];
 		pt->Tree[node].y = H;
-		pt->Tree[node].x = (Xl + XR) / 2;
+		pt->Tree[node].x = (LocationXnow + XR-1) / 2;
 		return;
 	}
 }
-void DrawTree(PrintTree* pt, Tree* t)
+void DrawTree(PrintForest* pt, Tree* t)
 {
-	initgraph(1280, 720);
-	//// 设置背景色为淡白色
-	//setbkcolor(RGB(255, 255, 253));
-	////setbkmode(TRANSPARENT);
-	//// 用背景色清空屏幕
-	//cleardevice();
-	//settextcolor(BLACK);
-	//LOGFONT format;
-	//gettextstyle(&format);						// 获取当前字体设置
-	//format.lfHeight = 20;						// 设置字体高度为 25
-	//format.lfQuality = PROOF_QUALITY;			// 设置输出效果为最高质量  
-	//format.lfPitchAndFamily = FIXED_PITCH;
-	//_tcscpy_s(format.lfFaceName, _T(FONT));		// 设置字体为FONT
-	//settextstyle(&format);						// 设置字体样式
-
-	int DrawX, DrawY,FatherX,FatherY;
+	int NodeX,NodeY,FatherX,FatherY;
+	int Zoom= TEXTSIZE /5;
 	//首先输出根节点
-	DrawX = pt->Tree[0].x * ZOOM;
-	DrawY = pt->Tree[0].y * ZOOM;
-	outtextxy(DrawX, DrawY, pt->Tree[0].element);
+	//没想到吧，根节点是虚拟节点根本不需要输出
 	for (int i = 1; i < t->treeH; i++)
 	{
-		DrawX = pt->Tree[i].x * ZOOM;
-		DrawY = pt->Tree[i].y * ZOOM;
+		NodeX = pt->Tree[i].x * ZOOM;
+		NodeY = pt->Tree[i].y * ZOOM;
 		FatherX = pt->Tree[pt->Tree[i].father].x * ZOOM;
 		FatherY = pt->Tree[pt->Tree[i].father].y * ZOOM;
-		outtextxy(DrawX, DrawY, pt->Tree[i].element);
-		line(DrawX, DrawY, FatherX, FatherY);
+		outtextxy(NodeX, NodeY, pt->Tree[i].element);
+		if (pt->Tree[i].father != 0)
+		{
+			line(NodeX + Zoom, NodeY, FatherX + Zoom, FatherY + TEXTSIZE);
+		}
 	}
-	Sleep(100000);
-	closegraph();
 	return;
 }
-//DrawTreeNode

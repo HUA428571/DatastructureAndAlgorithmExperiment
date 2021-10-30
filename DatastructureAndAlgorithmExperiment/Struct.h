@@ -1,6 +1,10 @@
 #pragma once
 #define QUEUESIZE 127
 #define MAXSIZE 127
+#define ZOOM 50//绘图缩放因子为20
+#define FONT "黑体"
+#define TEXTSIZE 20
+
 //首先我们从数据结构实验中抄来一部分代码
 typedef char ElemType;
 typedef struct btnode
@@ -15,7 +19,8 @@ typedef struct BinaryTree
 }BinaryTree;
 typedef struct tree
 {
-	ElemType tree[MAXSIZE][2];
+	ElemType Element[MAXSIZE];
+	ElemType Father[MAXSIZE];
 	int treeH = 0;
 }Tree;
 //然后折磨我们的环节终于开始了
@@ -32,6 +37,7 @@ typedef struct printTree
 {
 	int TreeMAXheight;
 	int TreeMAXwidth;
-	int TreeNodeCount;
+	int TreeTreeCount;//统计有多少颗树
+	int TreeRoot[MAXSIZE];//记录树的根节点所在位置
 	PrintTreeNode Tree[MAXSIZE];
-}PrintTree;
+}PrintForest;

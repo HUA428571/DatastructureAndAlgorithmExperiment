@@ -1,5 +1,5 @@
 #pragma once
-#include"BinaryTree.h"
+#include "BinaryTree.h"
 using namespace std;
 
 //构建新二叉树
@@ -28,51 +28,10 @@ void MakeTree(BinaryTree* bt, ElemType e, BinaryTree* left, BinaryTree* right)
 	bt->root = NewNode(e, left->root, right->root);
 	left->root = right->root = NULL;
 }
-//先序遍历
-void PreOrderTree(BinaryTree* bt)
-{
-	PreOrder(bt->root);
-	printf("\n");
-}
-void PreOrder(BTNode* t)
-{
-	if (!t)
-		return;
-	printf("%c", t->element);//访问根节点
-	PreOrder(t->lChild);//先序遍历左子树
-	PreOrder(t->rChild);//先序遍历右子树
-}
-//中序遍历
-void InOrderTree(BinaryTree* bt)
-{
-	InOrder(bt->root);
-	printf("\n");
-}
-void InOrder(BTNode* t)
-{
-	if (!t)
-		return;
-	InOrder(t->lChild);//中序遍历左子树
-	printf("%c", t->element);//访问根节点
-	InOrder(t->rChild);//中序遍历右子树
-}
-//后序遍历
-void PostOrderTree(BinaryTree* bt)
-{
-	PostOrder(bt->root);
-	printf("\n");
-}
-void PostOrder(BTNode* t)
-{
-	if (!t)
-		return;
-	PostOrder(t->lChild);//后序遍历左子树
-	PostOrder(t->rChild);//后序遍历右子树
-	printf("%c", t->element);//访问根节点
-}
+
 //重写先序遍历以供二叉树转化使用
 //i数组下标、j父元素、k当前元素
-void BinaryTreeToForest(BTNode* p, Tree* t, int & i, int j, int k)
+void BinaryTreeToForest(BTNode* p, Tree* t, int& i, int j, int k)
 {
 	if (!p)
 		return;
@@ -111,7 +70,7 @@ void ExchangeBinaryTreeToForest(BinaryTree* bt, Tree* t)
 	t->Father[i] = -1;
 	t->treeH++;
 	i++;
-	t->Element[i]= p->element;//首先获取根节点的数据
+	t->Element[i] = p->element;//首先获取根节点的数据
 	t->Father[i] = 0;
 	t->treeH++;
 	//先序遍历二叉树并将其转化为树存储在数组中
@@ -131,7 +90,7 @@ void LevelOrderTree(BinaryTree* tree, char* PreOrderResult)
 	{
 		p = Q.front();
 		Q.pop();
-		PreOrderResult[i]=p->element;
+		PreOrderResult[i] = p->element;
 		i++;
 		if (p->lChild)
 			Q.push(p->lChild);
@@ -152,6 +111,7 @@ void Clear(BTNode* t)
 	Clear(t->rChild);//清楚右子树
 	free(t);//清楚根节点
 }
+
 //先序遍历构建二叉树
 //注意输入的顺序，需要在每一个子树的结尾加上标记符#
 BTNode* PreCreateBT(BTNode* t, FILE* fp)

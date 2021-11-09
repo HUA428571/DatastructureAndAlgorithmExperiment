@@ -1,0 +1,12 @@
+1AAAA##BB###BC###BCDC#D#E####CDEF#G#H#I###EF##FGJ#K###GH#I####2#3BCDE#####4BDIQ##JR###EK#LS#T#U####CFM##GNV###HOW##PX#Y#Z######$
+注意：只有第一行（以$为结尾）会被读取作为数据，在这边我们提供几组测试用例，可以在测试的时候替换第一行以测试：
+树：
+DEH##FJ##G###
+树：
+ABEK#L##F##CG##DHM##I#J####
+森林：
+ABCW###DO##EKP#Q##L#MR####F#JGY#X##HZ##T###
+树：
+AAAAA##BB###BC###BCDC#D#E####CDEF#G#H#I###EF##FGJ#K###GH#I#####
+森林:
+1AAAA##BB###BC###BCDC#D#E####CDEF#G#H#I###EF##FGJ#K###GH#I####2#3BCDE#####4BDIQ##JR###EK#LS#T#U####CFM##GNV###HOW##PX#Y#Z######

@@ -99,7 +99,7 @@ void GUI(PrintForest* pt, Tree* t, char* PreOrderResult)
 }
 void SaveTreeTXT(Tree* t, FILE* fp, char* PreOrderResult)
 {
-	fprintf(fp, "注意，我们在存储树的时候使用一个虚拟的根节点，存储在0号位。每一个树的根都以此为父亲。\n");
+	fprintf(fp, "注意，我们在存储森林的时候使用一个虚拟的根节点，存储在0号位。每一个树的根都以此为父亲。\n");
 	fprintf(fp, "Copyright 2021 HuaCL\n");
 	fprintf(fp, "\n");
 	fprintf(fp, "\telement\tfather\t\n");

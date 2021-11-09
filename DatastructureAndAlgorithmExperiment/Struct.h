@@ -1,6 +1,6 @@
 #pragma once
-#define QUEUESIZE 127
-#define MAXSIZE 127
+#define QUEUESIZE 999
+#define MAXSIZE 999
 #define ZOOM 50//绘图缩放因子为20
 #define FONT "黑体"
 #define TEXTSIZE 20
@@ -21,7 +21,7 @@ typedef struct BinaryTree
 typedef struct tree
 {
 	ElemType Element[MAXSIZE];
-	ElemType Father[MAXSIZE];
+	int Father[MAXSIZE];
 	int treeH = 0;
 }Tree;
 

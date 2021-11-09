@@ -35,7 +35,7 @@ void CalculateTreeXY(int node, Tree* t, PrintForest* pt, float XL, float& XR, in
 			pt->Tree[i].father = node;
 		}
 	}
-	//没有孩子，为根节点
+	//没有孩子，为叶子节点
 	if (SonCount == 0)
 	{
 		pt->Tree[node].element = t->Element[node];

@@ -1,6 +1,8 @@
 # DatastructureAndAlgorithmExperiment
 
 > 2021南京邮电大学算法与数据结构设计
+>
+> **请不要抄袭**借鉴了我的代码就给我一个star吧！
 
 选题：
 

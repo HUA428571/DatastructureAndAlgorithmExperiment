@@ -22,7 +22,11 @@
 
 # 测试
 
-## 测试用例
+> 相关测试文件在Data文件夹下，更改PreOrderTreeInput.txt文件以提供新的测试用例
+>
+> 文本输出在TreeOutput.txt文件下
+
+**测试用例**
 
 DEH##FJ##G###
 
@@ -30,7 +34,7 @@ ABEK#L##F##CG##DHM##I#J####
 
 ABCW###DO##EKP#Q##L#MR####F#JGY#X##HZ##T###
 
-# 程序截图
+**程序截图**
 
 ![image](https://github.com/HUA428571/DatastructureAndAlgorithmExperiment/assets/55879217/f7bb2acc-49b3-48b8-9aaf-b7d14f6dce3e)
 

@@ -25,8 +25,7 @@
 
 # 测试
 
-> 相关测试文件在Data文件夹下，更改PreOrderTreeInput.txt文件以提供新的测试用例
->
+> 相关测试文件在Data文件夹下，更改PreOrderTreeInput.txt文件以提供新的测试用例  
 > 文本输出在TreeOutput.txt文件下
 
 **测试用例**
